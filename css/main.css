@@ -11,6 +11,14 @@
     --neon-blue: #00d2ff;
     --neon-purple: #7b2ff7;
     --star-color: #ffffff;
+
+    /* Colores Emociones (Tarjetas) */
+    --bg-feliz: rgba(76, 175, 80, 0.2);
+    --bg-triste: rgba(33, 150, 243, 0.2);
+    --bg-ira: rgba(244, 67, 54, 0.2);
+    --bg-miedo: rgba(156, 39, 176, 0.2);
+    --bg-asco: rgba(139, 195, 74, 0.2);
+    --bg-sorpresa: rgba(255, 193, 7, 0.2);
 }
 
 /* Estilos de Trazo v2.0 */
@@ -24,10 +32,14 @@
     stroke-width: 4px; /* Line Art grueso */
 }
 
-* {
+html, body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    width: 100%;
+    min-height: 100%;
+    background: #0f0c29; /* Fallback */
+    background: var(--space-bg);
+    background-attachment: fixed;
 }
 
 body {
@@ -35,12 +47,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background: var(--space-bg);
+    justify-content: flex-start;
     font-family: 'Fredoka', 'Nunito', sans-serif;
     color: #fff;
     overflow-x: hidden;
     position: relative;
+    padding: 20px;
 }
 
 .stars-container {
@@ -50,7 +62,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    overflow: hidden;
+    pointer-events: none;
 }
 
 .star {
@@ -68,12 +80,24 @@ body {
 
 h1 {
     font-size: 2.5rem;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 6px;
     text-align: center;
     text-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-purple);
-    animation: pulse h1-pulse 3s infinite ease-in-out;
+    animation: h1-pulse 3s infinite ease-in-out;
+}
+
+.subtitle {
+    font-size: 2rem;
+    color: var(--neon-blue);
+    text-transform: lowercase;
+    font-variant: small-caps;
+    letter-spacing: 4px;
+    margin-bottom: 40px;
+    text-align: center;
+    opacity: 0.8;
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
 }
 
 @keyframes h1-pulse {
@@ -149,20 +173,6 @@ h1 {
     color: var(--day-orange);
 }
 
-.theme-day .analog-clock {
-    border-color: var(--day-yellow);
-    box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.3);
-}
-
-.theme-day .hand-second {
-    background: var(--day-orange);
-    box-shadow: 0 0 10px var(--day-orange);
-}
-
-.theme-day .separator {
-    background: linear-gradient(90deg, var(--day-blue), var(--day-yellow));
-}
-
 .clock-card:hover::before {
     opacity: 0.8;
 }
@@ -171,6 +181,21 @@ h1 {
     transform: translateY(0) rotate(1deg);
     background: rgba(255, 255, 255, 0.1);
 }
+
+/* Fondos Dinámicos por Emoción */
+#col-co.emotion-feliz .clock-card { background: var(--bg-feliz); border-color: var(--astro-red); }
+#col-co.emotion-triste .clock-card { background: var(--bg-triste); border-color: #2196F3; }
+#col-co.emotion-ira .clock-card { background: var(--bg-ira); border-color: var(--astro-red); }
+#col-co.emotion-miedo .clock-card { background: var(--bg-miedo); border-color: #9C27B0; }
+#col-co.emotion-asco .clock-card { background: var(--bg-asco); border-color: #8BC34A; }
+#col-co.emotion-sorpresa .clock-card { background: var(--bg-sorpresa); border-color: #FFC107; }
+
+#col-es.emotion-feliz .clock-card { background: var(--bg-feliz); border-color: var(--astro-blue); }
+#col-es.emotion-triste .clock-card { background: var(--bg-triste); border-color: #2196F3; }
+#col-es.emotion-ira .clock-card { background: var(--bg-ira); border-color: var(--btn-red); }
+#col-es.emotion-miedo .clock-card { background: var(--bg-miedo); border-color: #9C27B0; }
+#col-es.emotion-asco .clock-card { background: var(--bg-asco); border-color: #8BC34A; }
+#col-es.emotion-sorpresa .clock-card { background: var(--bg-sorpresa); border-color: #FFC107; }
 
 /* Chibi Astronaut SVG */
 .avatar-container {
@@ -241,6 +266,56 @@ h1 {
 
 #col-es.asleep .chibi-master {
     animation: chibi-breathe-adult 8s infinite ease-in-out;
+}
+
+/* Estado Durmiendo - Refuerzo Visual */
+.asleep .chibi-astronaut {
+    filter: brightness(0.3) saturate(0.4) drop-shadow(0 0 10px rgba(0, 210, 255, 0.1));
+    opacity: 0.6;
+    transform: scale(0.92) translateY(8px);
+    transition: all 2s;
+}
+
+.asleep .clock-card {
+    background: rgba(5, 5, 20, 0.95) !important;
+    border-color: rgba(0, 210, 255, 0.1) !important;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.9);
+    transition: all 2s;
+}
+
+.asleep .clock-card .person-label,
+.asleep .clock-card .country-name,
+.asleep .clock-card .timezone,
+.asleep .clock-card .date-display {
+    opacity: 0.15;
+    filter: blur(1.5px);
+    transition: all 2s;
+}
+
+.asleep .time-display {
+    color: rgba(255, 255, 255, 0.2);
+    text-shadow: none;
+    transition: all 2s;
+}
+
+.asleep .eye-lid {
+    transform: scaleY(0); /* Ojos cerrados */
+}
+
+.asleep .eye-static {
+    display: block !important;
+}
+
+.asleep .zzz-group {
+    display: block !important;
+    animation: zzz-float 4s infinite ease-in;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+}
+
+@keyframes zzz-float {
+    0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+    30% { opacity: 1; }
+    100% { transform: translate(40px, -80px) scale(2); opacity: 0; }
 }
 
 @keyframes chibi-float-child {
@@ -319,6 +394,36 @@ h1 {
     align-items: flex-start;
     font-size: 1.6rem;
     line-height: 1;
+}
+
+.ampm-text {
+    color: var(--neon-blue);
+    font-weight: 700;
+}
+
+.day-night-icon {
+    font-size: 2rem;
+}
+
+.seconds {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 5px;
+}
+
+.date-display {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Nunito', sans-serif;
+    margin-top: 10px;
+}
+
+@media (max-width: 750px) {
+    h1 { font-size: 1.8rem; }
+    .clocks-container { gap: 30px; }
+    .clock-card { min-width: 280px; padding: 30px; }
+    .time-display { font-size: 3rem; }
+}: 1;
 }
 
 .ampm-text {
