@@ -1,0 +1,67 @@
+<svg class="chibi-astronaut" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <g class="chibi-master">
+        <!-- Z-10: Mochila -->
+        <rect x="176" y="280" width="160" height="140" rx="20" fill="#f0f0f0" />
+        <line x1="336" y1="310" x2="350" y2="290" stroke="#000" stroke-width="6" />
+        <circle cx="360" cy="280" r="8" fill="#E63946" />
+
+        <!-- Z-20: Base Cuerpo -->
+        <rect x="195" y="390" width="50" height="60" rx="20" fill="var(--astro-red)" />
+        <rect x="267" y="390" width="50" height="60" rx="20" fill="var(--astro-red)" />
+        <rect x="130" y="290" width="50" height="90" rx="25" fill="var(--astro-red)" />
+        <rect x="332" y="290" width="50" height="90" rx="25" fill="var(--astro-red)" />
+        <rect x="176" y="280" width="160" height="140" rx="50" fill="var(--astro-red)" />
+
+        <!-- Z-30: Uniones -->
+        <rect x="130" y="330" width="50" height="10" fill="var(--astro-unions)" />
+        <rect x="332" y="330" width="50" height="10" fill="var(--astro-unions)" />
+        <rect x="195" y="415" width="50" height="10" fill="var(--astro-unions)" />
+        <rect x="267" y="415" width="50" height="10" fill="var(--astro-unions)" />
+
+        <!-- Z-40: Panel de Pecho -->
+        <rect x="216" y="310" width="80" height="60" rx="10" fill="#f1f1f1" />
+        <g class="panel-botones">
+            <circle cx="236" cy="330" r="8" fill="var(--btn-green)" />
+            <circle cx="276" cy="330" r="8" fill="var(--btn-red)" />
+            <rect x="230" y="345" width="52" height="10" rx="3" fill="var(--btn-gold)" />
+        </g>
+
+        <!-- Z-50: Casco -->
+        <circle cx="256" cy="160" r="145" fill="var(--astro-red)" />
+
+        <!-- Z-60: Visor -->
+        <ellipse cx="256" cy="160" rx="115" ry="85" fill="var(--astro-visor)" />
+        <path d="M175 125 Q256 95 337 125" stroke="#fff" stroke-width="12" stroke-opacity="0.6" fill="none" />
+
+        <!-- Expresiones v2.1 -->
+        <g class="expresiones">
+            <!-- Cejas -->
+            <path class="brow-sad" d="M210 135 L230 150 M280 150 L300 135" stroke="#fff" stroke-width="4" fill="none" />
+            <path class="brow-angry" d="M210 150 L230 135 M280 135 L300 150" stroke="#fff" stroke-width="4" fill="none" />
+            <path class="brow-surprise" d="M210 120 Q225 105 240 120 M272 120 Q287 105 302 120" stroke="#fff" stroke-width="4" fill="none" />
+            
+            <!-- Ojos -->
+            <g class="ojos">
+                <circle class="eye-lid" cx="225" cy="165" r="12" fill="#fff" />
+                <circle class="eye-lid" cx="285" cy="165" r="12" fill="#fff" />
+                <circle class="eye-surprise" cx="225" cy="165" r="18" stroke="#fff" stroke-width="3" fill="none" style="display:none;" />
+                <circle class="eye-surprise" cx="285" cy="165" r="18" stroke="#fff" stroke-width="3" fill="none" style="display:none;" />
+                <path class="eye-static" d="M210 165 Q225 180 240 165" stroke="#fff" stroke-width="6" fill="none" style="display:none;" />
+                <path class="eye-static" d="M272 165 Q287 180 302 165" stroke="#fff" stroke-width="6" fill="none" style="display:none;" />
+            </g>
+
+            <!-- Bocas -->
+            <path class="mouth-happy" d="M236 205 Q256 230 276 205" stroke="#fff" stroke-width="6" fill="none" />
+            <path class="mouth-sad" d="M240 220 Q256 200 272 220" stroke="#fff" stroke-width="4" fill="none" />
+            <line class="mouth-angry" x1="240" y1="210" x2="272" y2="210" stroke="#fff" stroke-width="5" />
+            <path class="mouth-fear" d="M235 215 Q245 205 255 215 Q265 205 275 215" stroke="#fff" stroke-width="3" fill="none" />
+            <path class="mouth-asco" d="M235 220 Q245 205 275 210" stroke="#fff" stroke-width="4" fill="none" />
+            <circle class="mouth-sorpresa" cx="256" cy="215" r="15" stroke="#fff" stroke-width="4" fill="none" />
+        </g>
+    </g>
+
+    <g class="zzz-group" style="display:none;">
+        <text x="390" y="140" fill="white" font-weight="bold" font-size="40">Z</text>
+        <text x="420" y="100" fill="white" font-weight="bold" font-size="50">Z</text>
+    </g>
+</svg>

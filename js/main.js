@@ -5,7 +5,7 @@
 
 const CONFIG = {
     starsCount: 150,
-    emocionesCiclo: ['feliz', 'triste', 'ira'],
+    emocionesCiclo: ['feliz', 'triste', 'ira', 'miedo', 'asco', 'sorpresa'],
     timezones: {
         co: 'America/Bogota',
         es: 'Europe/Madrid'
@@ -23,11 +23,7 @@ const DOM = {
             secondsText: document.getElementById('sec-text-co'),
             ampm: document.getElementById('ampm-co'),
             icon: document.getElementById('icon-co'),
-            date: document.getElementById('date-co'),
-            handHour: document.getElementById('hour-co'),
-            handMin: document.getElementById('min-co'),
-            handSec: document.getElementById('sec-co'),
-            analog: document.getElementById('analog-co')
+            date: document.getElementById('date-co')
         },
         es: {
             container: document.querySelector('#col-es .avatar-container'),
@@ -36,11 +32,7 @@ const DOM = {
             secondsText: document.getElementById('sec-text-es'),
             ampm: document.getElementById('ampm-es'),
             icon: document.getElementById('icon-es'),
-            date: document.getElementById('date-es'),
-            handHour: document.getElementById('hour-es'),
-            handMin: document.getElementById('min-es'),
-            handSec: document.getElementById('sec-es'),
-            analog: document.getElementById('analog-es')
+            date: document.getElementById('date-es')
         }
     }
 };
@@ -48,14 +40,36 @@ const DOM = {
 /**
  * Inicialización
  */
-function init() {
+async function init() {
     createStars();
-    addClockNumbers('co');
-    addClockNumbers('es');
+    await loadAvatars();
     setupInteractions();
     
     // Iniciar bucle de animación
     requestAnimationFrame(updateAllClocks);
+}
+
+/**
+ * Carga los SVGs de los avatares desde archivos externos e inyecta en el DOM
+ */
+async function loadAvatars() {
+    const avatars = [
+        { prefix: 'co', path: 'assets/elliot.svg' },
+        { prefix: 'es', path: 'assets/papa.svg' }
+    ];
+
+    for (const avatar of avatars) {
+        try {
+            const response = await fetch(avatar.path);
+            const svgText = await response.text();
+            const container = DOM.clocks[avatar.prefix].container;
+            if (container) {
+                container.innerHTML = svgText;
+            }
+        } catch (error) {
+            console.error(`Error cargando avatar ${avatar.prefix}:`, error);
+        }
+    }
 }
 
 /**
@@ -72,25 +86,6 @@ function createStars() {
         star.style.top = `${Math.random() * 100}%`;
         star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
         DOM.stars.appendChild(star);
-    }
-}
-
-/**
- * Añade números a los relojes analógicos
- */
-function addClockNumbers(prefix) {
-    const container = DOM.clocks[prefix].analog;
-    for (let i = 1; i <= 12; i++) {
-        const num = document.createElement('div');
-        num.className = 'clock-number';
-        const angle = (i * 30 - 90) * (Math.PI / 180);
-        const radius = 65;
-        const x = 80 + radius * Math.cos(angle) - 8;
-        const y = 80 + radius * Math.sin(angle) - 10;
-        num.style.left = x + 'px';
-        num.style.top = y + 'px';
-        num.textContent = i;
-        container.appendChild(num);
     }
 }
 
@@ -114,7 +109,12 @@ function setupInteractions() {
 function setEmotion(prefix, emotion) {
     const container = DOM.clocks[prefix].container;
     if (!container) return;
-    container.classList.remove('emotion-feliz', 'emotion-triste', 'emotion-ira');
+    
+    // Eliminar todas las posibles clases de emoción
+    CONFIG.emocionesCiclo.forEach(e => {
+        container.classList.remove(`emotion-${e}`);
+    });
+    
     container.classList.add(`emotion-${emotion}`);
 }
 
@@ -161,14 +161,15 @@ function updateClockUI(prefix) {
     const icon = isSolar ? '☀️' : '🌙';
 
     // Gestión de Estados (Astronauta y Tarjeta)
+    const column = document.getElementById(prefix === 'co' ? 'col-co' : 'col-es');
     if (isDay) {
-        clock.container.classList.add('awake');
-        clock.container.classList.remove('asleep');
+        column.classList.add('awake');
+        column.classList.remove('asleep');
         clock.card.classList.add('theme-day');
         clock.card.classList.remove('theme-night');
     } else {
-        clock.container.classList.add('asleep');
-        clock.container.classList.remove('awake');
+        column.classList.add('asleep');
+        column.classList.remove('awake');
         clock.card.classList.add('theme-night');
         clock.card.classList.remove('theme-day');
     }
@@ -188,16 +189,6 @@ function updateClockUI(prefix) {
         day: 'numeric'
     });
     clock.date.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
-
-    // Actualización Reloj Analógico (Movimiento Suave)
-    const smoothSeconds = seconds + (ms / 1000);
-    const secDeg = (smoothSeconds / 60) * 360;
-    const minDeg = ((minutes + smoothSeconds / 60) / 60) * 360;
-    const hourDeg = ((hours24 % 12 + (minutes + smoothSeconds / 60) / 60) / 12) * 360;
-
-    clock.handSec.style.transform = `rotate(${secDeg}deg)`;
-    clock.handMin.style.transform = `rotate(${minDeg}deg)`;
-    clock.handHour.style.transform = `rotate(${hourDeg}deg)`;
 }
 
 /**

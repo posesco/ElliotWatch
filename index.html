@@ -27,181 +27,51 @@
         <!-- Colombia - Elliot -->
         <div class="clock-column" id="col-co">
             <div class="avatar-container emotion-feliz">
-                <svg class="chibi-astronaut" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <g class="chibi-master">
-                        <!-- Mochila -->
-                        <rect class="mochila" x="65" y="110" width="70" height="70" rx="15" fill="#f0f0f0" stroke="#ccc" stroke-width="2" />
-                        <!-- Piernas Gruesas -->
-                        <rect class="base-cuerpo" x="70" y="160" width="25" height="30" rx="10" fill="#ffffff" />
-                        <rect class="base-cuerpo" x="105" y="160" width="25" height="30" rx="10" fill="#ffffff" />
-                        <!-- Uniones Rodillas -->
-                        <rect class="traje-uniones" x="70" y="170" width="25" height="8" fill="var(--joint-color)" />
-                        <rect class="traje-uniones" x="105" y="170" width="25" height="8" fill="var(--joint-color)" />
-                        <!-- Brazos Gruesos -->
-                        <rect class="base-cuerpo" x="45" y="115" width="25" height="50" rx="12" fill="#ffffff" />
-                        <rect class="base-cuerpo" x="130" y="115" width="25" height="50" rx="12" fill="#ffffff" />
-                        <!-- Uniones Codos -->
-                        <rect class="traje-uniones" x="45" y="135" width="25" height="8" fill="var(--joint-color)" />
-                        <rect class="traje-uniones" x="130" y="135" width="25" height="8" fill="var(--joint-color)" />
-                        <!-- Torso Chibi -->
-                        <rect class="base-cuerpo" x="65" y="110" width="70" height="65" rx="25" fill="#ffffff" />
-                        <!-- Casco Chibi -->
-                        <g class="casco">
-                            <circle cx="100" cy="70" r="50" fill="#ffffff" stroke="#eee" stroke-width="2" />
-                            <!-- Visor (Estilo Elliot) -->
-                            <rect class="visor" x="65" y="45" width="70" height="50" rx="20" fill="#00d2ff" fill-opacity="0.8" />
-                            <!-- Brillo Visor -->
-                            <rect x="75" y="55" width="20" height="8" rx="4" fill="#ffffff" fill-opacity="0.4" />
-                            
-                            <!-- Rasgos Faciales / Expresiones -->
-                            <g class="expresiones">
-                                <!-- Cejas -->
-                                <path class="brow-sad" d="M75 62 L85 68 M115 68 L125 62" stroke="#ffffff" stroke-width="2" fill="none" />
-                                <path class="brow-angry" d="M75 68 L85 62 M115 62 L125 68" stroke="#ffffff" stroke-width="2" fill="none" />
-                                
-                                <!-- Ojos -->
-                                <g class="ojos">
-                                    <circle class="eye-lid" cx="85" cy="70" r="5" fill="#ffffff" />
-                                    <circle class="eye-lid" cx="115" cy="70" r="5" fill="#ffffff" />
-                                    <path class="eye-static" d="M80 70 Q85 75 90 70" stroke="#ffffff" stroke-width="3" fill="none" style="display:none;" />
-                                    <path class="eye-static" d="M110 70 Q115 75 120 70" stroke="#ffffff" stroke-width="3" fill="none" style="display:none;" />
-                                </g>
-                                
-                                <!-- Bocas -->
-                                <path class="mouth-happy" d="M90 82 Q100 90 110 82" stroke="#ffffff" stroke-width="2" fill="none" />
-                                <path class="mouth-sad" d="M92 88 Q100 82 108 88" stroke="#ffffff" stroke-width="2" fill="none" />
-                                <line class="mouth-angry" x1="92" y1="85" x2="108" y2="85" stroke="#ffffff" stroke-width="2" />
-                            </g>
-                        </g>
-                        <!-- Detalles Dorados Elliot -->
-                        <rect class="detalles" x="90" y="125" width="20" height="10" rx="5" fill="var(--gold)" />
-                        <!-- Accesorios: Bandera CO -->
-                        <g class="accesorios">
-                            <text x="92" y="152" font-size="12">🇨🇴</text>
-                        </g>
-                    </g>
-                    <!-- Zzz Group -->
-                    <g class="zzz-group" style="display:none;">
-                        <text x="140" y="60" fill="white" font-weight="bold" font-size="20">Z</text>
-                        <text x="155" y="45" fill="white" font-weight="bold" font-size="24">Z</text>
-                        <text x="170" y="30" fill="white" font-weight="bold" font-size="28">Z</text>
-                    </g>
-                </svg>
+                <!-- SVG inyectado por JS -->
             </div>
             <div class="clock-card" id="card-co">
-                <div class="person-label">🇨🇴 Elliot 🇨🇴</div>
-                <div class="country-name">Colombia</div>
-                <div class="timezone">Bogotá (UTC-5)</div>
+            <div class="person-label">🇨🇴 Elliot 🇨🇴</div>
+            <div class="country-name">Colombia</div>
+            <div class="timezone">Bogotá (UTC-5)</div>
 
-                <div class="analog-clock" id="analog-co">
-                    <div class="center-dot"></div>
-                    <div class="hand hand-hour" id="hour-co"></div>
-                    <div class="hand hand-minute" id="min-co"></div>
-                    <div class="hand hand-second" id="sec-co"></div>
+            <div class="separator"></div>
+
+            <div class="time-display">
+                <span id="time-co">00:00</span>
+                <span class="seconds" id="sec-text-co">00</span>
+                <div class="ampm-group">
+                    <span class="day-night-icon" id="icon-co">☀️</span>
+                    <span class="ampm-text" id="ampm-co">AM</span>
                 </div>
-
-                <div class="separator"></div>
-
-                <div class="time-display">
-                    <span id="time-co">00:00</span>
-                    <span class="seconds" id="sec-text-co">00</span>
-                    <div class="ampm-group">
-                        <span class="day-night-icon" id="icon-co">☀️</span>
-                        <span class="ampm-text" id="ampm-co">AM</span>
-                    </div>
-                </div>
-                <div class="date-display" id="date-co"></div>
             </div>
+            <div class="date-display" id="date-co"></div>
+            </div>
+
         </div>
 
         <!-- España - Papá -->
         <div class="clock-column" id="col-es">
             <div class="avatar-container emotion-feliz">
-                <svg class="chibi-astronaut" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <g class="chibi-master">
-                        <!-- Mochila -->
-                        <rect class="mochila" x="60" y="110" width="80" height="70" rx="15" fill="#f0f0f0" stroke="#ccc" stroke-width="2" />
-                        <!-- Piernas Gruesas -->
-                        <rect class="base-cuerpo" x="65" y="165" width="30" height="30" rx="12" fill="#ffffff" />
-                        <rect class="base-cuerpo" x="105" y="165" width="30" height="30" rx="12" fill="#ffffff" />
-                        <!-- Uniones Rodillas -->
-                        <rect class="traje-uniones" x="65" y="175" width="30" height="8" fill="var(--joint-color)" />
-                        <rect class="traje-uniones" x="105" y="175" width="30" height="8" fill="var(--joint-color)" />
-                        <!-- Brazos Gruesos -->
-                        <rect class="base-cuerpo" x="35" y="115" width="30" height="60" rx="15" fill="#ffffff" />
-                        <rect class="base-cuerpo" x="135" y="115" width="30" height="60" rx="15" fill="#ffffff" />
-                        <!-- Uniones Codos -->
-                        <rect class="traje-uniones" x="35" y="140" width="30" height="8" fill="var(--joint-color)" />
-                        <rect class="traje-uniones" x="135" y="140" width="30" height="8" fill="var(--joint-color)" />
-                        <!-- Torso Papá -->
-                        <rect class="base-cuerpo" x="60" y="110" width="80" height="70" rx="30" fill="#ffffff" />
-                        <!-- Casco Chibi Papá -->
-                        <g class="casco">
-                            <circle cx="100" cy="65" r="55" fill="#ffffff" stroke="#eee" stroke-width="2" />
-                            <!-- Visor (Estilo Papá) -->
-                            <rect class="visor" x="60" y="40" width="80" height="50" rx="20" fill="#ff8c00" fill-opacity="0.8" />
-                            <!-- Brillo Visor -->
-                            <rect x="70" y="50" width="25" height="8" rx="4" fill="#ffffff" fill-opacity="0.4" />
-                            
-                            <!-- Rasgos Faciales / Expresiones -->
-                            <g class="expresiones">
-                                <!-- Cejas -->
-                                <path class="brow-sad" d="M72 58 L82 65 M118 65 L128 58" stroke="#ffffff" stroke-width="3" fill="none" />
-                                <path class="brow-angry" d="M72 65 L82 58 M118 58 L128 65" stroke="#ffffff" stroke-width="3" fill="none" />
-                                
-                                <!-- Ojos -->
-                                <g class="ojos">
-                                    <circle class="eye-lid" cx="80" cy="65" r="6" fill="#ffffff" />
-                                    <circle class="eye-lid" cx="120" cy="65" r="6" fill="#ffffff" />
-                                    <path class="eye-static" d="M72 65 Q80 72 88 65" stroke="#ffffff" stroke-width="4" fill="none" style="display:none;" />
-                                    <path class="eye-static" d="M112 65 Q120 72 128 65" stroke="#ffffff" stroke-width="4" fill="none" style="display:none;" />
-                                </g>
-                                
-                                <!-- Bocas -->
-                                <path class="mouth-happy" d="M85 82 Q100 90 115 82" stroke="#ffffff" stroke-width="2" fill="none" />
-                                <path class="mouth-sad" d="M88 88 Q100 82 112 88" stroke="#ffffff" stroke-width="2" fill="none" />
-                                <line class="mouth-angry" x1="88" y1="85" x2="112" y2="85" stroke="#ffffff" stroke-width="2" />
-                            </g>
-                        </g>
-                        <!-- Detalles Plateados Papá -->
-                        <rect class="detalles" x="85" y="130" width="30" height="12" rx="6" fill="var(--silver)" />
-                        <!-- Accesorios: Bandera ES -->
-                        <g class="accesorios">
-                            <text x="92" y="155" font-size="12">🇪🇸</text>
-                        </g>
-                    </g>
-                    <!-- Zzz Group -->
-                    <g class="zzz-group" style="display:none;">
-                        <text x="145" y="55" fill="white" font-weight="bold" font-size="20">Z</text>
-                        <text x="160" y="40" fill="white" font-weight="bold" font-size="24">Z</text>
-                        <text x="175" y="25" fill="white" font-weight="bold" font-size="28">Z</text>
-                    </g>
-                </svg>
+                <!-- SVG inyectado por JS -->
             </div>
             <div class="clock-card" id="card-es">
-                <div class="person-label">🇪🇸 Papá 🇪🇸</div>
-                <div class="country-name">España</div>
-                <div class="timezone">Madrid (UTC+1/2)</div>
+            <div class="person-label">🇪🇸 Papá 🇪🇸</div>
+            <div class="country-name">España</div>
+            <div class="timezone">Madrid (UTC+1/2)</div>
 
-                <div class="analog-clock" id="analog-es">
-                    <div class="center-dot"></div>
-                    <div class="hand hand-hour" id="hour-es"></div>
-                    <div class="hand hand-minute" id="min-es"></div>
-                    <div class="hand hand-second" id="sec-es"></div>
+            <div class="separator"></div>
+
+            <div class="time-display">
+                <span id="time-es">00:00</span>
+                <span class="seconds" id="sec-text-es">00</span>
+                <div class="ampm-group">
+                    <span class="day-night-icon" id="icon-es">☀️</span>
+                    <span class="ampm-text" id="ampm-es">AM</span>
                 </div>
-
-                <div class="separator"></div>
-
-                <div class="time-display">
-                    <span id="time-es">00:00</span>
-                    <span class="seconds" id="sec-text-es">00</span>
-                    <div class="ampm-group">
-                        <span class="day-night-icon" id="icon-es">☀️</span>
-                        <span class="ampm-text" id="ampm-es">AM</span>
-                    </div>
-                </div>
-                <div class="date-display" id="date-es"></div>
             </div>
+            <div class="date-display" id="date-es"></div>
+            </div>
+
         </div>
 
     </div>
