@@ -11,6 +11,9 @@
             --neon-blue: #00d2ff;
             --neon-purple: #7b2ff7;
             --neon-pink: #ff4757;
+            --day-yellow: #ffd700;
+            --day-orange: #ff8c00;
+            --day-blue: #00d2ff;
             --gold: #ffd700;
             --silver: #c0c0c0;
             --star-color: #ffffff;
@@ -99,13 +102,14 @@
             padding: 40px;
             text-align: center;
             min-width: 340px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             z-index: 1;
         }
 
-        .clock-card::before {
+        /* Temas Condicionales */
+        .theme-night::before {
             content: '';
             position: absolute;
             top: -2px; left: -2px; right: -2px; bottom: -2px;
@@ -114,6 +118,49 @@
             border-radius: 42px;
             opacity: 0.3;
             transition: opacity 0.4s;
+        }
+
+        .theme-day::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, var(--day-blue), var(--day-yellow), var(--day-orange));
+            z-index: -1;
+            border-radius: 42px;
+            opacity: 0.5;
+            transition: opacity 0.4s;
+        }
+
+        .theme-day.clock-card {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 45px rgba(255, 215, 0, 0.2);
+        }
+
+        .theme-day .country-name {
+            color: var(--day-yellow);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+        }
+
+        .theme-day .ampm-text {
+            color: var(--day-orange);
+        }
+
+        .theme-day .analog-clock {
+            border-color: var(--day-yellow);
+            box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .theme-day .hand-second {
+            background: var(--day-orange);
+            box-shadow: 0 0 10px var(--day-orange);
+        }
+
+        .theme-day .separator {
+            background: linear-gradient(90deg, var(--day-blue), var(--day-yellow));
+        }
+
+        .clock-card:hover::before {
+            opacity: 0.8;
         }
 
         .clock-card:hover {
@@ -650,14 +697,20 @@
             const isDay = hours24 >= 6 && hours24 < 21; // Awake 6AM to 9PM
             const icon = (hours24 >= 6 && hours24 < 18) ? '☀️' : '🌙';
 
-            // State management
+            // State management (Astronaut)
             const container = document.querySelector(`#col-${prefix} .avatar-container`);
+            const card = document.getElementById(`card-${prefix}`);
+            
             if (isDay) {
                 container.classList.add('awake');
                 container.classList.remove('asleep');
+                card.classList.add('theme-day');
+                card.classList.remove('theme-night');
             } else {
                 container.classList.add('asleep');
                 container.classList.remove('awake');
+                card.classList.add('theme-night');
+                card.classList.remove('theme-day');
             }
 
             document.getElementById(`time-${prefix}`).textContent = `${String(hours12).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
