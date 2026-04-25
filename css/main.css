@@ -1,0 +1,413 @@
+:root {
+    --space-bg: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    --neon-blue: #00d2ff;
+    --neon-purple: #7b2ff7;
+    --neon-pink: #ff4757;
+    --day-yellow: #ffd700;
+    --day-orange: #ff8c00;
+    --day-blue: #00d2ff;
+    --gold: #ffd700;
+    --silver: #c0c0c0;
+    --star-color: #ffffff;
+    --joint-color: #333333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--space-bg);
+    font-family: 'Fredoka', 'Nunito', sans-serif;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    background: var(--star-color);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: twinkle var(--duration) infinite ease-in-out;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    text-align: center;
+    text-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-purple);
+    animation: pulse h1-pulse 3s infinite ease-in-out;
+}
+
+@keyframes h1-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.clocks-container {
+    display: flex;
+    gap: 80px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 40px 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.clock-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.clock-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    padding: 40px;
+    text-align: center;
+    min-width: 340px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* Temas Condicionales */
+.theme-night::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+    z-index: -1;
+    border-radius: 42px;
+    opacity: 0.3;
+    transition: opacity 0.4s;
+}
+
+.theme-day::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: linear-gradient(45deg, var(--day-blue), var(--day-yellow), var(--day-orange));
+    z-index: -1;
+    border-radius: 42px;
+    opacity: 0.5;
+    transition: opacity 0.4s;
+}
+
+.theme-day.clock-card {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 15px 45px rgba(255, 215, 0, 0.2);
+}
+
+.theme-day .country-name {
+    color: var(--day-yellow);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+.theme-day .ampm-text {
+    color: var(--day-orange);
+}
+
+.theme-day .analog-clock {
+    border-color: var(--day-yellow);
+    box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.theme-day .hand-second {
+    background: var(--day-orange);
+    box-shadow: 0 0 10px var(--day-orange);
+}
+
+.theme-day .separator {
+    background: linear-gradient(90deg, var(--day-blue), var(--day-yellow));
+}
+
+.clock-card:hover::before {
+    opacity: 0.8;
+}
+
+.clock-card:hover {
+    transform: translateY(0) rotate(1deg);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Chibi Astronaut SVG */
+.avatar-container {
+    position: relative;
+    margin-bottom: -30px; /* Sitting on the card */
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s;
+    cursor: pointer;
+}
+
+#card-co .avatar-container { width: 140px; height: 140px; }
+#card-es .avatar-container { width: 180px; height: 180px; }
+
+.chibi-astronaut {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+}
+
+/* Emociones Rasgos */
+.mouth-happy, .mouth-sad, .mouth-angry,
+.brow-sad, .brow-angry {
+    display: none;
+}
+
+/* Estado: Feliz (Default) */
+.emotion-feliz .mouth-happy { display: block !important; }
+
+/* Estado: Triste */
+.emotion-triste .mouth-happy { display: none !important; }
+.emotion-triste .mouth-sad { display: block !important; }
+.emotion-triste .brow-sad { display: block !important; }
+
+/* Estado: Ira */
+.emotion-ira .mouth-happy { display: none !important; }
+.emotion-ira .mouth-angry { display: block !important; }
+.emotion-ira .brow-angry { display: block !important; }
+
+/* Capas Chibi Animaciones */
+.awake .chibi-master {
+    animation: chibi-float 4s infinite ease-in-out;
+}
+
+.awake .eye-lid {
+    animation: chibi-blink 5s infinite;
+}
+
+.asleep .chibi-master {
+    animation: chibi-breathe 5s infinite ease-in-out;
+}
+
+.asleep .eye-lid {
+    transform: scaleY(0); /* Ojos cerrados */
+}
+
+.asleep .eye-static {
+    display: block !important;
+}
+
+.asleep .zzz-group {
+    display: block !important;
+    animation: zzz-float 3s infinite linear;
+}
+
+@keyframes chibi-float {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+@keyframes chibi-breathe {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(2px) scale(1.02); }
+}
+
+@keyframes chibi-blink {
+    0%, 90%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0); }
+}
+
+@keyframes zzz-float {
+    0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translate(20px, -40px) scale(1.5); opacity: 0; }
+}
+
+.country-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+}
+
+.person-label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffda79;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.timezone {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 25px;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* Reloj Analógico Espacial */
+.analog-clock {
+    width: 160px;
+    height: 160px;
+    border: 4px solid var(--neon-blue);
+    border-radius: 50%;
+    margin: 20px auto;
+    position: relative;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 0 20px var(--neon-blue);
+}
+
+.analog-clock .hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    border-radius: 10px;
+}
+
+.hand-hour {
+    width: 8px;
+    height: 45px;
+    background: var(--neon-pink);
+    margin-left: -4px;
+    z-index: 3;
+}
+.hand-hour::after {
+    content: '🚀';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+    font-size: 1.2rem;
+}
+
+.hand-minute {
+    width: 6px;
+    height: 60px;
+    background: var(--neon-blue);
+    margin-left: -3px;
+    z-index: 2;
+}
+.hand-minute::after {
+    content: '⭐';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+}
+
+.hand-second {
+    width: 2px;
+    height: 70px;
+    background: #fff;
+    margin-left: -1px;
+    z-index: 1;
+    box-shadow: 0 0 10px #fff;
+}
+
+.center-dot {
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.clock-number {
+    position: absolute;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 0 5px var(--neon-blue);
+}
+
+.separator {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+    margin: 25px auto;
+    border-radius: 10px;
+}
+
+.time-display {
+    font-size: 3.84rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #fff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+.ampm-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 1.44rem;
+    line-height: 1;
+}
+
+.ampm-text {
+    color: var(--neon-blue);
+    font-weight: 700;
+}
+
+.day-night-icon {
+    font-size: 1.8rem;
+}
+
+.seconds {
+    font-size: 1.68rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 5px;
+}
+
+.date-display {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Nunito', sans-serif;
+}
+
+@media (max-width: 750px) {
+    h1 { font-size: 1.8rem; }
+    .clocks-container { gap: 30px; }
+    .clock-card { min-width: 280px; padding: 30px; }
+    .time-display { font-size: 3rem; }
+}
