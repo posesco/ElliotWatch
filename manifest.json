@@ -1,0 +1,17 @@
+{
+    "name": "Reloj Espacial de Elliot",
+    "short_name": "ElliotWatch",
+    "description": "Reloj dual interactivo para Elliot y Papá",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#0f0c29",
+    "theme_color": "#00d2ff",
+    "icons": [
+        {
+            "src": "assets/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        }
+    ]
+}

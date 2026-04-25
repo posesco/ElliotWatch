@@ -45,6 +45,15 @@ async function init() {
     await loadAvatars();
     setupInteractions();
     
+    // Registrar Service Worker para PROD (Offline support)
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('SW registrado', reg))
+                .catch(err => console.warn('SW falló', err));
+        });
+    }
+
     // Iniciar bucle de animación
     requestAnimationFrame(updateAllClocks);
 }

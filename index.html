@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🚀 Aventuras espaciales de Elliot</title>
+    <meta name="description" content="Reloj espacial interactivo para conectar los mundos de Elliot y su Papá.">
+    <meta name="theme-color" content="#00d2ff">
     
+    <!-- PWA & Security -->
+    <link rel="manifest" href="manifest.json">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; script-src 'self' 'unsafe-inline';">
+
     <!-- Favicon -->
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     
@@ -18,67 +24,67 @@
 </head>
 <body>
 
-    <div class="stars-container" id="stars"></div>
+    <div class="stars-container" id="stars" aria-hidden="true"></div>
 
-    <h1>🚀 Aventuras espaciales de Elliot 👨‍🚀</h1>
-    <h2 class="subtitle">Relojes del mundo</h2>
+    <header>
+        <h1>🚀 Aventuras espaciales de Elliot 👨‍🚀</h1>
+        <h2 class="subtitle">Relojes del mundo</h2>
+    </header>
 
-    <div class="clocks-container">
+    <main class="clocks-container">
 
         <!-- Colombia - Elliot -->
-        <div class="clock-column" id="col-co">
-            <div class="avatar-container emotion-feliz">
+        <article class="clock-column" id="col-co" aria-label="Reloj de Elliot en Colombia">
+            <div class="avatar-container emotion-feliz" aria-hidden="true">
                 <!-- SVG inyectado por JS -->
             </div>
-            <div class="clock-card" id="card-co">
-            <div class="person-label">🇨🇴 Elliot 🇨🇴</div>
-            <div class="country-name">Colombia</div>
-            <div class="timezone">Bogotá (UTC-5)</div>
+            <div class="clock-card" id="card-co" role="button" aria-label="Ver detalles de hora en Colombia">
+                <div class="person-label">🇨🇴 Elliot 🇨🇴</div>
+                <div class="country-name">Colombia</div>
+                <div class="timezone">Bogotá (UTC-5)</div>
 
-            <div class="separator"></div>
+                <div class="separator" aria-hidden="true"></div>
 
-            <div class="time-display">
-                <span id="time-co">00:00</span>
-                <span class="seconds" id="sec-text-co">00</span>
-                <div class="ampm-group">
-                    <span class="day-night-icon" id="icon-co">☀️</span>
-                    <span class="ampm-text" id="ampm-co">AM</span>
+                <div class="time-display" role="timer" aria-live="polite">
+                    <span id="time-co">00:00</span>
+                    <span class="seconds" id="sec-text-co">00</span>
+                    <div class="ampm-group">
+                        <span class="day-night-icon" id="icon-co" aria-hidden="true">☀️</span>
+                        <span class="ampm-text" id="ampm-co">AM</span>
+                    </div>
                 </div>
+                <div class="date-display" id="date-co"></div>
             </div>
-            <div class="date-display" id="date-co"></div>
-            </div>
-
-        </div>
+        </article>
 
         <!-- España - Papá -->
-        <div class="clock-column" id="col-es">
-            <div class="avatar-container emotion-feliz">
+        <article class="clock-column" id="col-es" aria-label="Reloj de Papá en España">
+            <div class="avatar-container emotion-feliz" aria-hidden="true">
                 <!-- SVG inyectado por JS -->
             </div>
-            <div class="clock-card" id="card-es">
-            <div class="person-label">🇪🇸 Papá 🇪🇸</div>
-            <div class="country-name">España</div>
-            <div class="timezone">Madrid (UTC+1/2)</div>
+            <div class="clock-card" id="card-es" role="button" aria-label="Ver detalles de hora en España">
+                <div class="person-label">🇪🇸 Papá 🇪🇸</div>
+                <div class="country-name">España</div>
+                <div class="timezone">Madrid (UTC+1/2)</div>
 
-            <div class="separator"></div>
+                <div class="separator" aria-hidden="true"></div>
 
-            <div class="time-display">
-                <span id="time-es">00:00</span>
-                <span class="seconds" id="sec-text-es">00</span>
-                <div class="ampm-group">
-                    <span class="day-night-icon" id="icon-es">☀️</span>
-                    <span class="ampm-text" id="ampm-es">AM</span>
+                <div class="time-display" role="timer" aria-live="polite">
+                    <span id="time-es">00:00</span>
+                    <span class="seconds" id="sec-text-es">00</span>
+                    <div class="ampm-group">
+                        <span class="day-night-icon" id="icon-es" aria-hidden="true">☀️</span>
+                        <span class="ampm-text" id="ampm-es">AM</span>
+                    </div>
                 </div>
+                <div class="date-display" id="date-es"></div>
             </div>
-            <div class="date-display" id="date-es"></div>
-            </div>
+        </article>
 
-        </div>
-
-    </div>
+    </main>
 
     <footer class="footer">
-        <a href="http://jesusposada.website/" target="_blank" rel="noopener noreferrer">
+        <a href="http://jesusposada.website/" target="_blank" rel="noopener noreferrer" aria-label="Visitar sitio web personal de Jesús Posada">
             Hecho con ❤️ para mi hijo 🧑‍🚀<br>jesusposada.website
         </a>
     </footer>

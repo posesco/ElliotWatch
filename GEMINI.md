@@ -13,9 +13,14 @@ Contexto operativo para el desarrollo y mantenimiento del reloj dual (CO/ES).
 - **Modos de Tiempo:**
     - **Awake (06:00 - 20:59):** Animación de flotación, colores de emoción activos.
     - **Asleep (21:00 - 05:59):** Animación de respiración lenta, ojos cerrados, penumbra visual (brightness 0.3), Zzz activas.
-- **Diferenciación:**
-    - **Elliot (ID: co):** Escala 0.8x, animaciones rápidas.
-    - **Papá (ID: es):** Escala 1.0x, animaciones lentas.
+- **Interacciones de UI:**
+    - **Zoom Pulse:** Al tocar las tarjetas de tiempo (`.clock-card`), se dispara una animación de zoom en el display de la hora.
+    - **Feedback Táctil:** Cursor puntero en las tarjetas para indicar interactividad.
+    - **Footer Personal:** Créditos dinámicos al final de la página.
+
+## Diferenciación
+- **Elliot (ID: co):** Escala 0.8x, animaciones rápidas.
+- **Papá (ID: es):** Escala 1.0x, animaciones lentas.
 
 ## Configuración de Red
 - **Timezones:** `America/Bogota` y `Europe/Madrid`.
