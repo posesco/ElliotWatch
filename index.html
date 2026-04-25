@@ -11,7 +11,10 @@
             --neon-blue: #00d2ff;
             --neon-purple: #7b2ff7;
             --neon-pink: #ff4757;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
             --star-color: #ffffff;
+            --joint-color: #333333;
         }
 
         * {
@@ -33,7 +36,6 @@
             position: relative;
         }
 
-        /* Estrellas animadas */
         .stars-container {
             position: fixed;
             top: 0;
@@ -64,22 +66,29 @@
             letter-spacing: 6px;
             text-align: center;
             text-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-purple);
-            animation: pulse 3s infinite ease-in-out;
+            animation: pulse h1-pulse 3s infinite ease-in-out;
         }
 
-        @keyframes pulse {
+        @keyframes h1-pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
 
         .clocks-container {
             display: flex;
-            gap: 50px;
+            gap: 80px;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 20px;
+            padding: 40px 20px;
             width: 100%;
             max-width: 1200px;
+        }
+
+        .clock-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
         }
 
         .clock-card {
@@ -89,10 +98,11 @@
             border-radius: 40px;
             padding: 40px;
             text-align: center;
-            min-width: 320px;
+            min-width: 340px;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            z-index: 1;
         }
 
         .clock-card::before {
@@ -107,7 +117,7 @@
         }
 
         .clock-card:hover {
-            transform: translateY(-15px) rotate(2deg);
+            transform: translateY(0) rotate(1deg);
             background: rgba(255, 255, 255, 0.1);
         }
 
@@ -115,10 +125,92 @@
             opacity: 0.8;
         }
 
+        /* Chibi Astronaut SVG */
         .avatar-container {
-            font-size: 4rem;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+            position: relative;
+            margin-bottom: -30px; /* Sitting on the card */
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s;
+            cursor: pointer;
+        }
+
+        #card-co .avatar-container { width: 140px; height: 140px; }
+        #card-es .avatar-container { width: 180px; height: 180px; }
+
+        .chibi-astronaut {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+        }
+
+        /* Emociones Rasgos */
+        .mouth-happy, .mouth-sad, .mouth-angry,
+        .brow-sad, .brow-angry {
+            display: none;
+        }
+
+        /* Estado: Feliz (Default) */
+        .emotion-feliz .mouth-happy { display: block !important; }
+        
+        /* Estado: Triste */
+        .emotion-triste .mouth-happy { display: none !important; }
+        .emotion-triste .mouth-sad { display: block !important; }
+        .emotion-triste .brow-sad { display: block !important; }
+
+        /* Estado: Ira */
+        .emotion-ira .mouth-happy { display: none !important; }
+        .emotion-ira .mouth-angry { display: block !important; }
+        .emotion-ira .brow-angry { display: block !important; }
+
+        /* Capas Chibi Animaciones */
+        .awake .chibi-master {
+            animation: chibi-float 4s infinite ease-in-out;
+        }
+
+        .awake .eye-lid {
+            animation: chibi-blink 5s infinite;
+        }
+
+        .asleep .chibi-master {
+            animation: chibi-breathe 5s infinite ease-in-out;
+        }
+
+        .asleep .eye-lid {
+            transform: scaleY(0); /* Ojos cerrados */
+        }
+
+        .asleep .eye-static {
+            display: block !important;
+        }
+
+        .asleep .zzz-group {
+            display: block !important;
+            animation: zzz-float 3s infinite linear;
+        }
+
+        @keyframes chibi-float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+
+        @keyframes chibi-breathe {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(2px) scale(1.02); }
+        }
+
+        @keyframes chibi-blink {
+            0%, 90%, 100% { transform: scaleY(1); }
+            95% { transform: scaleY(0); }
+        }
+
+        @keyframes zzz-float {
+            0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translate(20px, -40px) scale(1.5); opacity: 0; }
         }
 
         .country-name {
@@ -147,7 +239,7 @@
             font-family: 'Nunito', sans-serif;
         }
 
-        /* Reloj analógico espacial */
+        /* Reloj Analógico Espacial */
         .analog-clock {
             width: 160px;
             height: 160px;
@@ -167,7 +259,6 @@
             border-radius: 10px;
         }
 
-        /* Manecilla de Hora (Cohete) */
         .hand-hour {
             width: 8px;
             height: 45px;
@@ -184,7 +275,6 @@
             font-size: 1.2rem;
         }
 
-        /* Manecilla de Minuto (Estrella) */
         .hand-minute {
             width: 6px;
             height: 60px;
@@ -201,7 +291,6 @@
             font-size: 1rem;
         }
 
-        /* Manecilla de Segundo (Láser) */
         .hand-second {
             width: 2px;
             height: 70px;
@@ -240,7 +329,6 @@
             border-radius: 10px;
         }
 
-        /* Reloj Digital */
         .time-display {
             font-size: 3.2rem;
             font-weight: 700;
@@ -299,63 +387,188 @@
     <div class="clocks-container">
 
         <!-- Colombia - Elliot -->
-        <div class="clock-card">
-            <div class="avatar-container">👦🚀</div>
-            <div class="person-label">🇨🇴 Elliot 🇨🇴</div>
-            <div class="country-name">Colombia</div>
-            <div class="timezone">Bogotá (UTC-5)</div>
-
-            <div class="analog-clock" id="analog-co">
-                <div class="center-dot"></div>
-                <div class="hand hand-hour" id="hour-co"></div>
-                <div class="hand hand-minute" id="min-co"></div>
-                <div class="hand hand-second" id="sec-co"></div>
+        <div class="clock-column" id="col-co">
+            <div class="avatar-container emotion-feliz">
+                <svg class="chibi-astronaut" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <g class="chibi-master">
+                        <!-- Mochila -->
+                        <rect class="mochila" x="65" y="110" width="70" height="70" rx="15" fill="#f0f0f0" stroke="#ccc" stroke-width="2" />
+                        <!-- Piernas Gruesas -->
+                        <rect class="base-cuerpo" x="70" y="160" width="25" height="30" rx="10" fill="#ffffff" />
+                        <rect class="base-cuerpo" x="105" y="160" width="25" height="30" rx="10" fill="#ffffff" />
+                        <!-- Uniones Rodillas -->
+                        <rect class="traje-uniones" x="70" y="170" width="25" height="8" fill="var(--joint-color)" />
+                        <rect class="traje-uniones" x="105" y="170" width="25" height="8" fill="var(--joint-color)" />
+                        <!-- Brazos Gruesos -->
+                        <rect class="base-cuerpo" x="45" y="115" width="25" height="50" rx="12" fill="#ffffff" />
+                        <rect class="base-cuerpo" x="130" y="115" width="25" height="50" rx="12" fill="#ffffff" />
+                        <!-- Uniones Codos -->
+                        <rect class="traje-uniones" x="45" y="135" width="25" height="8" fill="var(--joint-color)" />
+                        <rect class="traje-uniones" x="130" y="135" width="25" height="8" fill="var(--joint-color)" />
+                        <!-- Torso Chibi -->
+                        <rect class="base-cuerpo" x="65" y="110" width="70" height="65" rx="25" fill="#ffffff" />
+                        <!-- Casco Chibi -->
+                        <g class="casco">
+                            <circle cx="100" cy="70" r="50" fill="#ffffff" stroke="#eee" stroke-width="2" />
+                            <!-- Visor (Estilo Elliot) -->
+                            <rect class="visor" x="65" y="45" width="70" height="50" rx="20" fill="#00d2ff" fill-opacity="0.8" />
+                            <!-- Brillo Visor -->
+                            <rect x="75" y="55" width="20" height="8" rx="4" fill="#ffffff" fill-opacity="0.4" />
+                            
+                            <!-- Rasgos Faciales / Expresiones -->
+                            <g class="expresiones">
+                                <!-- Cejas -->
+                                <path class="brow-sad" d="M75 62 L85 68 M115 68 L125 62" stroke="#ffffff" stroke-width="2" fill="none" />
+                                <path class="brow-angry" d="M75 68 L85 62 M115 62 L125 68" stroke="#ffffff" stroke-width="2" fill="none" />
+                                
+                                <!-- Ojos -->
+                                <g class="ojos">
+                                    <circle class="eye-lid" cx="85" cy="70" r="5" fill="#ffffff" />
+                                    <circle class="eye-lid" cx="115" cy="70" r="5" fill="#ffffff" />
+                                    <path class="eye-static" d="M80 70 Q85 75 90 70" stroke="#ffffff" stroke-width="3" fill="none" style="display:none;" />
+                                    <path class="eye-static" d="M110 70 Q115 75 120 70" stroke="#ffffff" stroke-width="3" fill="none" style="display:none;" />
+                                </g>
+                                
+                                <!-- Bocas -->
+                                <path class="mouth-happy" d="M90 82 Q100 90 110 82" stroke="#ffffff" stroke-width="2" fill="none" />
+                                <path class="mouth-sad" d="M92 88 Q100 82 108 88" stroke="#ffffff" stroke-width="2" fill="none" />
+                                <line class="mouth-angry" x1="92" y1="85" x2="108" y2="85" stroke="#ffffff" stroke-width="2" />
+                            </g>
+                        </g>
+                        <!-- Detalles Dorados Elliot -->
+                        <rect class="detalles" x="90" y="125" width="20" height="10" rx="5" fill="var(--gold)" />
+                        <!-- Accesorios: Bandera CO -->
+                        <g class="accesorios">
+                            <text x="92" y="152" font-size="12">🇨🇴</text>
+                        </g>
+                    </g>
+                    <!-- Zzz Group -->
+                    <g class="zzz-group" style="display:none;">
+                        <text x="140" y="60" fill="white" font-weight="bold" font-size="20">Z</text>
+                        <text x="155" y="45" fill="white" font-weight="bold" font-size="24">Z</text>
+                        <text x="170" y="30" fill="white" font-weight="bold" font-size="28">Z</text>
+                    </g>
+                </svg>
             </div>
+            <div class="clock-card" id="card-co">
+                <div class="person-label">🇨🇴 Elliot 🇨🇴</div>
+                <div class="country-name">Colombia</div>
+                <div class="timezone">Bogotá (UTC-5)</div>
 
-            <div class="separator"></div>
-
-            <div class="time-display">
-                <span id="time-co">00:00</span>
-                <span class="seconds" id="sec-text-co">00</span>
-                <div class="ampm-group">
-                    <span class="day-night-icon" id="icon-co">☀️</span>
-                    <span class="ampm-text" id="ampm-co">AM</span>
+                <div class="analog-clock" id="analog-co">
+                    <div class="center-dot"></div>
+                    <div class="hand hand-hour" id="hour-co"></div>
+                    <div class="hand hand-minute" id="min-co"></div>
+                    <div class="hand hand-second" id="sec-co"></div>
                 </div>
+
+                <div class="separator"></div>
+
+                <div class="time-display">
+                    <span id="time-co">00:00</span>
+                    <span class="seconds" id="sec-text-co">00</span>
+                    <div class="ampm-group">
+                        <span class="day-night-icon" id="icon-co">☀️</span>
+                        <span class="ampm-text" id="ampm-co">AM</span>
+                    </div>
+                </div>
+                <div class="date-display" id="date-co"></div>
             </div>
-            <div class="date-display" id="date-co"></div>
         </div>
 
         <!-- España - Papá -->
-        <div class="clock-card">
-            <div class="avatar-container">👨‍🚀</div>
-            <div class="person-label">🇪🇸 Papá 🇪🇸</div>
-            <div class="country-name">España</div>
-            <div class="timezone">Madrid (UTC+1/2)</div>
-
-            <div class="analog-clock" id="analog-es">
-                <div class="center-dot"></div>
-                <div class="hand hand-hour" id="hour-es"></div>
-                <div class="hand hand-minute" id="min-es"></div>
-                <div class="hand hand-second" id="sec-es"></div>
+        <div class="clock-column" id="col-es">
+            <div class="avatar-container emotion-feliz">
+                <svg class="chibi-astronaut" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <g class="chibi-master">
+                        <!-- Mochila -->
+                        <rect class="mochila" x="60" y="110" width="80" height="70" rx="15" fill="#f0f0f0" stroke="#ccc" stroke-width="2" />
+                        <!-- Piernas Gruesas -->
+                        <rect class="base-cuerpo" x="65" y="165" width="30" height="30" rx="12" fill="#ffffff" />
+                        <rect class="base-cuerpo" x="105" y="165" width="30" height="30" rx="12" fill="#ffffff" />
+                        <!-- Uniones Rodillas -->
+                        <rect class="traje-uniones" x="65" y="175" width="30" height="8" fill="var(--joint-color)" />
+                        <rect class="traje-uniones" x="105" y="175" width="30" height="8" fill="var(--joint-color)" />
+                        <!-- Brazos Gruesos -->
+                        <rect class="base-cuerpo" x="35" y="115" width="30" height="60" rx="15" fill="#ffffff" />
+                        <rect class="base-cuerpo" x="135" y="115" width="30" height="60" rx="15" fill="#ffffff" />
+                        <!-- Uniones Codos -->
+                        <rect class="traje-uniones" x="35" y="140" width="30" height="8" fill="var(--joint-color)" />
+                        <rect class="traje-uniones" x="135" y="140" width="30" height="8" fill="var(--joint-color)" />
+                        <!-- Torso Papá -->
+                        <rect class="base-cuerpo" x="60" y="110" width="80" height="70" rx="30" fill="#ffffff" />
+                        <!-- Casco Chibi Papá -->
+                        <g class="casco">
+                            <circle cx="100" cy="65" r="55" fill="#ffffff" stroke="#eee" stroke-width="2" />
+                            <!-- Visor (Estilo Papá) -->
+                            <rect class="visor" x="60" y="40" width="80" height="50" rx="20" fill="#ff8c00" fill-opacity="0.8" />
+                            <!-- Brillo Visor -->
+                            <rect x="70" y="50" width="25" height="8" rx="4" fill="#ffffff" fill-opacity="0.4" />
+                            
+                            <!-- Rasgos Faciales / Expresiones -->
+                            <g class="expresiones">
+                                <!-- Cejas -->
+                                <path class="brow-sad" d="M72 58 L82 65 M118 65 L128 58" stroke="#ffffff" stroke-width="3" fill="none" />
+                                <path class="brow-angry" d="M72 65 L82 58 M118 58 L128 65" stroke="#ffffff" stroke-width="3" fill="none" />
+                                
+                                <!-- Ojos -->
+                                <g class="ojos">
+                                    <circle class="eye-lid" cx="80" cy="65" r="6" fill="#ffffff" />
+                                    <circle class="eye-lid" cx="120" cy="65" r="6" fill="#ffffff" />
+                                    <path class="eye-static" d="M72 65 Q80 72 88 65" stroke="#ffffff" stroke-width="4" fill="none" style="display:none;" />
+                                    <path class="eye-static" d="M112 65 Q120 72 128 65" stroke="#ffffff" stroke-width="4" fill="none" style="display:none;" />
+                                </g>
+                                
+                                <!-- Bocas -->
+                                <path class="mouth-happy" d="M85 82 Q100 90 115 82" stroke="#ffffff" stroke-width="2" fill="none" />
+                                <path class="mouth-sad" d="M88 88 Q100 82 112 88" stroke="#ffffff" stroke-width="2" fill="none" />
+                                <line class="mouth-angry" x1="88" y1="85" x2="112" y2="85" stroke="#ffffff" stroke-width="2" />
+                            </g>
+                        </g>
+                        <!-- Detalles Plateados Papá -->
+                        <rect class="detalles" x="85" y="130" width="30" height="12" rx="6" fill="var(--silver)" />
+                        <!-- Accesorios: Bandera ES -->
+                        <g class="accesorios">
+                            <text x="92" y="155" font-size="12">🇪🇸</text>
+                        </g>
+                    </g>
+                    <!-- Zzz Group -->
+                    <g class="zzz-group" style="display:none;">
+                        <text x="145" y="55" fill="white" font-weight="bold" font-size="20">Z</text>
+                        <text x="160" y="40" fill="white" font-weight="bold" font-size="24">Z</text>
+                        <text x="175" y="25" fill="white" font-weight="bold" font-size="28">Z</text>
+                    </g>
+                </svg>
             </div>
+            <div class="clock-card" id="card-es">
+                <div class="person-label">🇪🇸 Papá 🇪🇸</div>
+                <div class="country-name">España</div>
+                <div class="timezone">Madrid (UTC+1/2)</div>
 
-            <div class="separator"></div>
-
-            <div class="time-display">
-                <span id="time-es">00:00</span>
-                <span class="seconds" id="sec-text-es">00</span>
-                <div class="ampm-group">
-                    <span class="day-night-icon" id="icon-es">☀️</span>
-                    <span class="ampm-text" id="ampm-es">AM</span>
+                <div class="analog-clock" id="analog-es">
+                    <div class="center-dot"></div>
+                    <div class="hand hand-hour" id="hour-es"></div>
+                    <div class="hand hand-minute" id="min-es"></div>
+                    <div class="hand hand-second" id="sec-es"></div>
                 </div>
+
+                <div class="separator"></div>
+
+                <div class="time-display">
+                    <span id="time-es">00:00</span>
+                    <span class="seconds" id="sec-text-es">00</span>
+                    <div class="ampm-group">
+                        <span class="day-night-icon" id="icon-es">☀️</span>
+                        <span class="ampm-text" id="ampm-es">AM</span>
+                    </div>
+                </div>
+                <div class="date-display" id="date-es"></div>
             </div>
-            <div class="date-display" id="date-es"></div>
         </div>
 
     </div>
 
     <script>
-        // Generar estrellas de fondo
         function createStars() {
             const container = document.getElementById('stars');
             const count = 150;
@@ -373,7 +586,6 @@
         }
         createStars();
 
-        // Números en el reloj analógico
         function addClockNumbers(containerId) {
             const container = document.getElementById(containerId);
             for (let i = 1; i <= 12; i++) {
@@ -396,15 +608,12 @@
         function getTimeByZone(timezone) {
             const now = new Date();
             const options = { timeZone: timezone };
-            
-            // Usamos formato de 24h internamente para facilitar cálculos
             const formatter = new Intl.DateTimeFormat('en-US', {
                 ...options,
                 hour: 'numeric', hour12: false,
                 minute: '2-digit',
                 second: '2-digit',
             });
-            
             const parts = formatter.formatToParts(now);
             let h = 0, m = 0, s = 0;
             parts.forEach(p => {
@@ -412,29 +621,50 @@
                 if (p.type === 'minute') m = parseInt(p.value);
                 if (p.type === 'second') s = parseInt(p.value);
             });
-
             return { hours24: h, minutes: m, seconds: s, date: now };
         }
+
+        function setEmotion(prefix, emotion) {
+            const container = document.querySelector(`#col-${prefix} .avatar-container`);
+            if (!container) return;
+            container.classList.remove('emotion-feliz', 'emotion-triste', 'emotion-ira');
+            container.classList.add(`emotion-${emotion}`);
+        }
+
+        // Cambio de emociones cíclico al hacer clic
+        const emocionesCiclo = ['feliz', 'triste', 'ira'];
+        document.querySelectorAll('.avatar-container').forEach(container => {
+            container.addEventListener('click', function() {
+                const prefix = this.parentElement.id.replace('col-', '');
+                let currentEmotion = emocionesCiclo.find(e => this.classList.contains(`emotion-${e}`)) || 'feliz';
+                let nextIndex = (emocionesCiclo.indexOf(currentEmotion) + 1) % emocionesCiclo.length;
+                setEmotion(prefix, emocionesCiclo[nextIndex]);
+            });
+        });
 
         function updateClock(prefix, timezone) {
             const { hours24, minutes, seconds, date } = getTimeByZone(timezone);
 
-            // Conversión a 12h
             const ampm = hours24 >= 12 ? 'PM' : 'AM';
             const hours12 = hours24 % 12 || 12;
+            const isDay = hours24 >= 6 && hours24 < 21; // Awake 6AM to 9PM
             const icon = (hours24 >= 6 && hours24 < 18) ? '☀️' : '🌙';
 
-            // Reloj digital
-            const hh = String(hours12).padStart(2, '0');
-            const mm = String(minutes).padStart(2, '0');
-            const ss = String(seconds).padStart(2, '0');
-            
-            document.getElementById(`time-${prefix}`).textContent = `${hh}:${mm}`;
-            document.getElementById(`sec-text-${prefix}`).textContent = ss;
+            // State management
+            const container = document.querySelector(`#col-${prefix} .avatar-container`);
+            if (isDay) {
+                container.classList.add('awake');
+                container.classList.remove('asleep');
+            } else {
+                container.classList.add('asleep');
+                container.classList.remove('awake');
+            }
+
+            document.getElementById(`time-${prefix}`).textContent = `${String(hours12).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+            document.getElementById(`sec-text-${prefix}`).textContent = String(seconds).padStart(2, '0');
             document.getElementById(`ampm-${prefix}`).textContent = ampm;
             document.getElementById(`icon-${prefix}`).textContent = icon;
 
-            // Fecha
             const dateStr = date.toLocaleDateString('es-ES', {
                 timeZone: timezone,
                 weekday: 'long',
@@ -445,7 +675,6 @@
             document.getElementById(`date-${prefix}`).textContent =
                 dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
-            // Reloj analógico
             const secDeg = (seconds / 60) * 360;
             const minDeg = ((minutes + seconds / 60) / 60) * 360;
             const hourDeg = ((hours24 % 12 + minutes / 60) / 12) * 360;
@@ -463,6 +692,5 @@
         tick();
         setInterval(tick, 1000);
     </script>
-
 </body>
 </html>
