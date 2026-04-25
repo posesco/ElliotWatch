@@ -108,14 +108,17 @@ function setupInteractions() {
  */
 function setEmotion(prefix, emotion) {
     const container = DOM.clocks[prefix].container;
-    if (!container) return;
+    const column = document.getElementById(prefix === 'co' ? 'col-co' : 'col-es');
+    if (!container || !column) return;
     
     // Eliminar todas las posibles clases de emoción
     CONFIG.emocionesCiclo.forEach(e => {
         container.classList.remove(`emotion-${e}`);
+        column.classList.remove(`emotion-${e}`);
     });
     
     container.classList.add(`emotion-${emotion}`);
+    column.classList.add(`emotion-${emotion}`);
 }
 
 /**
