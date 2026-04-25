@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relojes - Colombia & España</title>
+    <title>Reloj Espacial de Elliot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --space-bg: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            --neon-blue: #00d2ff;
+            --neon-purple: #7b2ff7;
+            --neon-pink: #ff4757;
+            --star-color: #ffffff;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -17,101 +26,137 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--space-bg);
+            font-family: 'Fredoka', 'Nunito', sans-serif;
             color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Estrellas animadas */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: var(--star-color);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             margin-bottom: 40px;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 6px;
             text-align: center;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            text-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-purple);
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .clocks-container {
             display: flex;
-            gap: 60px;
+            gap: 50px;
             flex-wrap: wrap;
             justify-content: center;
             padding: 20px;
+            width: 100%;
+            max-width: 1200px;
         }
 
         .clock-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            padding: 40px 50px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 40px;
+            padding: 40px;
             text-align: center;
-            min-width: 300px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-width: 320px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .clock-card::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            z-index: -1;
+            border-radius: 42px;
+            opacity: 0.3;
+            transition: opacity 0.4s;
         }
 
         .clock-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transform: translateY(-15px) rotate(2deg);
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .flag {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
+        .clock-card:hover::before {
+            opacity: 0.8;
+        }
+
+        .avatar-container {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
         }
 
         .country-name {
-            font-size: 1.4rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .person-label {
+            font-size: 1.2rem;
             font-weight: 600;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
+            color: #ffda79;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .timezone {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 25px;
-        }
-
-        .time-display {
-            font-size: 3.5rem;
-            font-weight: 700;
-            font-family: 'Courier New', Courier, monospace;
-            letter-spacing: 3px;
-            background: linear-gradient(90deg, #00d2ff, #7b2ff7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .seconds {
-            font-size: 1.5rem;
-            vertical-align: super;
-        }
-
-        .date-display {
-            margin-top: 15px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 25px;
+            font-family: 'Nunito', sans-serif;
         }
 
-        .separator {
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(90deg, #00d2ff, #7b2ff7);
-            margin: 20px auto;
-            border-radius: 2px;
-        }
-
-        /* Reloj analógico */
+        /* Reloj analógico espacial */
         .analog-clock {
-            width: 140px;
-            height: 140px;
-            border: 3px solid rgba(255, 255, 255, 0.2);
+            width: 160px;
+            height: 160px;
+            border: 4px solid var(--neon-blue);
             border-radius: 50%;
-            margin: 20px auto 10px;
+            margin: 20px auto;
             position: relative;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: inset 0 0 20px var(--neon-blue);
         }
 
         .analog-clock .hand {
@@ -119,33 +164,56 @@
             bottom: 50%;
             left: 50%;
             transform-origin: bottom center;
-            border-radius: 4px;
+            border-radius: 10px;
         }
 
+        /* Manecilla de Hora (Cohete) */
         .hand-hour {
-            width: 4px;
-            height: 35px;
-            background: #fff;
-            margin-left: -2px;
+            width: 8px;
+            height: 45px;
+            background: var(--neon-pink);
+            margin-left: -4px;
+            z-index: 3;
+        }
+        .hand-hour::after {
+            content: '🚀';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%) rotate(0deg);
+            font-size: 1.2rem;
         }
 
+        /* Manecilla de Minuto (Estrella) */
         .hand-minute {
-            width: 3px;
-            height: 50px;
-            background: #00d2ff;
-            margin-left: -1.5px;
+            width: 6px;
+            height: 60px;
+            background: var(--neon-blue);
+            margin-left: -3px;
+            z-index: 2;
+        }
+        .hand-minute::after {
+            content: '⭐';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
         }
 
+        /* Manecilla de Segundo (Láser) */
         .hand-second {
-            width: 1.5px;
-            height: 55px;
-            background: #ff4757;
-            margin-left: -0.75px;
+            width: 2px;
+            height: 70px;
+            background: #fff;
+            margin-left: -1px;
+            z-index: 1;
+            box-shadow: 0 0 10px #fff;
         }
 
         .center-dot {
-            width: 8px;
-            height: 8px;
+            width: 12px;
+            height: 12px;
             background: #fff;
             border-radius: 50%;
             position: absolute;
@@ -153,43 +221,89 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 10;
+            box-shadow: 0 0 10px var(--neon-blue);
         }
 
         .clock-number {
             position: absolute;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.5);
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 5px var(--neon-blue);
         }
 
-        @media (max-width: 700px) {
-            .clocks-container {
-                gap: 30px;
-            }
-            .clock-card {
-                min-width: 260px;
-                padding: 30px;
-            }
-            .time-display {
-                font-size: 2.5rem;
-            }
-            h1 {
-                font-size: 1.2rem;
-            }
+        .separator {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            margin: 25px auto;
+            border-radius: 10px;
+        }
+
+        /* Reloj Digital */
+        .time-display {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .ampm-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .ampm-text {
+            color: var(--neon-blue);
+            font-weight: 700;
+        }
+
+        .day-night-icon {
+            font-size: 1.5rem;
+        }
+
+        .seconds {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-left: 5px;
+        }
+
+        .date-display {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        @media (max-width: 750px) {
+            h1 { font-size: 1.8rem; }
+            .clocks-container { gap: 30px; }
+            .clock-card { min-width: 280px; padding: 30px; }
+            .time-display { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <h1>🕐 Hora Actual</h1>
+    <div class="stars-container" id="stars"></div>
+
+    <h1>✨ Reloj Espacial ✨</h1>
 
     <div class="clocks-container">
 
-        <!-- Colombia -->
+        <!-- Colombia - Elliot -->
         <div class="clock-card">
-            <div class="flag">🇨🇴</div>
+            <div class="avatar-container">👦🚀</div>
+            <div class="person-label">🇨🇴 Elliot 🇨🇴</div>
             <div class="country-name">Colombia</div>
-            <div class="timezone">UTC-5 · Bogotá</div>
+            <div class="timezone">Bogotá (UTC-5)</div>
 
             <div class="analog-clock" id="analog-co">
                 <div class="center-dot"></div>
@@ -200,15 +314,23 @@
 
             <div class="separator"></div>
 
-            <div class="time-display" id="time-co">00:00<span class="seconds">00</span></div>
+            <div class="time-display">
+                <span id="time-co">00:00</span>
+                <span class="seconds" id="sec-text-co">00</span>
+                <div class="ampm-group">
+                    <span class="day-night-icon" id="icon-co">☀️</span>
+                    <span class="ampm-text" id="ampm-co">AM</span>
+                </div>
+            </div>
             <div class="date-display" id="date-co"></div>
         </div>
 
-        <!-- España -->
+        <!-- España - Papá -->
         <div class="clock-card">
-            <div class="flag">🇪🇸</div>
+            <div class="avatar-container">👨‍🚀</div>
+            <div class="person-label">🇪🇸 Papá 🇪🇸</div>
             <div class="country-name">España</div>
-            <div class="timezone">UTC+1 / UTC+2 · Madrid</div>
+            <div class="timezone">Madrid (UTC+1/2)</div>
 
             <div class="analog-clock" id="analog-es">
                 <div class="center-dot"></div>
@@ -219,13 +341,38 @@
 
             <div class="separator"></div>
 
-            <div class="time-display" id="time-es">00:00<span class="seconds">00</span></div>
+            <div class="time-display">
+                <span id="time-es">00:00</span>
+                <span class="seconds" id="sec-text-es">00</span>
+                <div class="ampm-group">
+                    <span class="day-night-icon" id="icon-es">☀️</span>
+                    <span class="ampm-text" id="ampm-es">AM</span>
+                </div>
+            </div>
             <div class="date-display" id="date-es"></div>
         </div>
 
     </div>
 
     <script>
+        // Generar estrellas de fondo
+        function createStars() {
+            const container = document.getElementById('stars');
+            const count = 150;
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+                container.appendChild(star);
+            }
+        }
+        createStars();
+
         // Números en el reloj analógico
         function addClockNumbers(containerId) {
             const container = document.getElementById(containerId);
@@ -233,9 +380,9 @@
                 const num = document.createElement('div');
                 num.className = 'clock-number';
                 const angle = (i * 30 - 90) * (Math.PI / 180);
-                const radius = 58;
-                const x = 70 + radius * Math.cos(angle) - 6;
-                const y = 70 + radius * Math.sin(angle) - 7;
+                const radius = 65;
+                const x = 80 + radius * Math.cos(angle) - 8;
+                const y = 80 + radius * Math.sin(angle) - 10;
                 num.style.left = x + 'px';
                 num.style.top = y + 'px';
                 num.textContent = i;
@@ -249,13 +396,16 @@
         function getTimeByZone(timezone) {
             const now = new Date();
             const options = { timeZone: timezone };
-            const parts = new Intl.DateTimeFormat('en-US', {
+            
+            // Usamos formato de 24h internamente para facilitar cálculos
+            const formatter = new Intl.DateTimeFormat('en-US', {
                 ...options,
-                hour: '2-digit', hour12: false,
+                hour: 'numeric', hour12: false,
                 minute: '2-digit',
                 second: '2-digit',
-            }).formatToParts(now);
-
+            });
+            
+            const parts = formatter.formatToParts(now);
             let h = 0, m = 0, s = 0;
             parts.forEach(p => {
                 if (p.type === 'hour') h = parseInt(p.value);
@@ -263,18 +413,26 @@
                 if (p.type === 'second') s = parseInt(p.value);
             });
 
-            return { hours: h, minutes: m, seconds: s, date: now };
+            return { hours24: h, minutes: m, seconds: s, date: now };
         }
 
         function updateClock(prefix, timezone) {
-            const { hours, minutes, seconds, date } = getTimeByZone(timezone);
+            const { hours24, minutes, seconds, date } = getTimeByZone(timezone);
+
+            // Conversión a 12h
+            const ampm = hours24 >= 12 ? 'PM' : 'AM';
+            const hours12 = hours24 % 12 || 12;
+            const icon = (hours24 >= 6 && hours24 < 18) ? '☀️' : '🌙';
 
             // Reloj digital
-            const hh = String(hours).padStart(2, '0');
+            const hh = String(hours12).padStart(2, '0');
             const mm = String(minutes).padStart(2, '0');
             const ss = String(seconds).padStart(2, '0');
-            document.getElementById(`time-${prefix}`).innerHTML =
-                `${hh}:${mm}<span class="seconds">${ss}</span>`;
+            
+            document.getElementById(`time-${prefix}`).textContent = `${hh}:${mm}`;
+            document.getElementById(`sec-text-${prefix}`).textContent = ss;
+            document.getElementById(`ampm-${prefix}`).textContent = ampm;
+            document.getElementById(`icon-${prefix}`).textContent = icon;
 
             // Fecha
             const dateStr = date.toLocaleDateString('es-ES', {
@@ -290,7 +448,7 @@
             // Reloj analógico
             const secDeg = (seconds / 60) * 360;
             const minDeg = ((minutes + seconds / 60) / 60) * 360;
-            const hourDeg = ((hours % 12 + minutes / 60) / 12) * 360;
+            const hourDeg = ((hours24 % 12 + minutes / 60) / 12) * 360;
 
             document.getElementById(`sec-${prefix}`).style.transform = `rotate(${secDeg}deg)`;
             document.getElementById(`min-${prefix}`).style.transform = `rotate(${minDeg}deg)`;
