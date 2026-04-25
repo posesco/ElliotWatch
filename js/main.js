@@ -94,11 +94,24 @@ function createStars() {
  */
 function setupInteractions() {
     Object.keys(DOM.clocks).forEach(prefix => {
-        const container = DOM.clocks[prefix].container;
-        container.addEventListener('click', () => {
+        const { container, card } = DOM.clocks[prefix];
+        
+        // Clic en el astronauta (Cambio de emoción)
+        container.addEventListener('click', (e) => {
+            e.stopPropagation(); // Evitar que el clic en el avatar dispare el zoom de la tarjeta si se solapan
             let currentEmotion = CONFIG.emocionesCiclo.find(e => container.classList.contains(`emotion-${e}`)) || 'feliz';
             let nextIndex = (CONFIG.emocionesCiclo.indexOf(currentEmotion) + 1) % CONFIG.emocionesCiclo.length;
             setEmotion(prefix, CONFIG.emocionesCiclo[nextIndex]);
+        });
+
+        // Clic en la tarjeta (Efecto Zoom en la hora)
+        card.addEventListener('click', () => {
+            const timeDisplay = card.querySelector('.time-display');
+            if (timeDisplay) {
+                timeDisplay.classList.remove('zoom-pulse');
+                void timeDisplay.offsetWidth; // Trigger reflow para reiniciar animación
+                timeDisplay.classList.add('zoom-pulse');
+            }
         });
     });
 }
