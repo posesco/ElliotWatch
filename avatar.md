@@ -1,4 +1,4 @@
-# Design System: Avatar Chibi Espacial v2.0
+# Design System: Avatar Chibi Espacial v1.0
 
 ## 1. Estilo Visual y Geometría
 * **Proporción:** Relación 1:1 (Cabeza/Casco ocupa el 50% de la altura total).
