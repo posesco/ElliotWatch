@@ -1,8 +1,8 @@
-# Reloj Espacial de Elliot 🚀
+# Reloj Espacial de Elliot 
 
 Reloj dual interactivo diseñado para sincronizar los mundos de Elliot (Colombia) y su Papá (España).
 
-## 🌟 Características
+## Características
 - **Dual Timezone:** Visualización simultánea de `America/Bogota` y `Europe/Madrid`.
 - **Avatar Dinámico:** Sistema de emociones basado en estados (feliz, triste, ira, etc.).
 - **Ciclo Circadiano:** Modos "Awake" y "Asleep" automáticos con animaciones diferenciadas.
@@ -14,7 +14,7 @@ Reloj dual interactivo diseñado para sincronizar los mundos de Elliot (Colombia
 - **Assets:** SVGs inyectados dinámicamente.
 - **CI/CD:** GitHub Actions para despliegue automático en GitHub Pages.
 
-## 🚀 Despliegue Local
+## Despliegue Local
 1. Clona el repo:
    ```bash
    git clone https://github.com/posesco/ElliotWatch.git
@@ -24,7 +24,7 @@ Reloj dual interactivo diseñado para sincronizar los mundos de Elliot (Colombia
    npx serve .
    ```
 
-## 📄 Licencia
+## Licencia
 Este proyecto está bajo la licencia [MIT](LICENSE).
 
 ---
